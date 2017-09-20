@@ -97,7 +97,7 @@ bot.on('message', (msg) => {
 		homePage(msg);
 	} else {	
 		bot.sendChatAction(msg.chat.id, 'typing');
-		let waiting = {};
+		var waiting = {};
 			waiting.msg = 'در حال دریافت اطلاعات ...';
 		bot.sendMessage(msg.chat.id, waiting.msg).then(function(r){
 			waiting.chat_id = r.chat.id,
