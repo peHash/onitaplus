@@ -93,6 +93,7 @@ const bot = new TelegramBot(token, {polling: true});
 
 
 bot.on('message', (msg) => {
+	console.log(msg)
 	bot.sendChatAction(msg.chat.id, 'typing');
 	let waiting = {};
 		waiting.msg = 'در حال دریافت اطلاعات ...';
