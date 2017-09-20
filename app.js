@@ -93,22 +93,24 @@ const bot = new TelegramBot(token, {polling: true});
 
 
 bot.on('message', (msg) => {
-	console.log(msg)
-	bot.sendChatAction(msg.chat.id, 'typing');
-	let waiting = {};
-		waiting.msg = 'در حال دریافت اطلاعات ...';
-	bot.sendMessage(msg.chat.id, waiting.msg).then(function(r){
-		waiting.chat_id = r.chat.id,
-		waiting.message_id = r.message_id
-	});
+	if (msg.text && msg.text.match(/\/start/)) {
+		homePage(msg);
+	} else if (msg.text) {	
+		bot.sendChatAction(msg.chat.id, 'typing');
+		let waiting = {};
+			waiting.msg = 'در حال دریافت اطلاعات ...';
+		bot.sendMessage(msg.chat.id, waiting.msg).then(function(r){
+			waiting.chat_id = r.chat.id,
+			waiting.message_id = r.message_id
+		});
 
-	if (msg.text) tsp(msg).then(function(res){
-		bot.editMessageText(msg.text + '	--->	' + res,{chat_id: waiting.chat_id,message_id:  waiting.message_id});
-	})
-	.catch(function(err){
-		console.log(err);
-	})
-
+		if (msg.text) tsp(msg).then(function(res){
+			bot.editMessageText(msg.text + '	--->	' + res,{chat_id: waiting.chat_id,message_id:  waiting.message_id});
+		})
+		.catch(function(err){
+			console.log(err);
+		})
+	}
 }, (err) => {
 	console.log(err);
 	return;
