@@ -10,7 +10,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const translate = require('google-translate-api');
 
 // replace the value below with the Telegram token you receive from @BotFather
-const token = '430103329:AAFeFKj6WaqRpyh9CyX4ZSMtOiTEaN6UOAM';
+const token = '311727287:AAH_ZXvV_A3HovDcaNJiW0UCC5XNFCsc6N4';
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
@@ -92,26 +92,26 @@ bot.on('inline_query', (q) => {
 })
 
 
-// bot.on('message', (msg) => {
-// 	bot.sendChatAction(msg.chat.id, 'typing');
-// 	let waiting = {};
-// 		waiting.msg = 'در حال دریافت اطلاعات ...';
-// 	bot.sendMessage(msg.chat.id, waiting.msg).then(function(r){
-// 		waiting.chat_id = r.chat.id,
-// 		waiting.message_id = r.message_id
-// 	});
+bot.on('message', (msg) => {
+	bot.sendChatAction(msg.chat.id, 'typing');
+	let waiting = {};
+		waiting.msg = 'در حال دریافت اطلاعات ...';
+	bot.sendMessage(msg.chat.id, waiting.msg).then(function(r){
+		waiting.chat_id = r.chat.id,
+		waiting.message_id = r.message_id
+	});
 
-// 	if (msg.text) tsp(msg).then(function(res){
-// 		bot.editMessageText(msg.text + '	--->	' + res,{chat_id: waiting.chat_id,message_id:  waiting.message_id});
-// 	})
-// 	.catch(function(err){
-// 		console.log(err);
-// 	})
+	if (msg.text) tsp(msg).then(function(res){
+		bot.editMessageText(msg.text + '	--->	' + res,{chat_id: waiting.chat_id,message_id:  waiting.message_id});
+	})
+	.catch(function(err){
+		console.log(err);
+	})
 
-// }, (err) => {
-// 	console.log(err);
-// 	return;
-// })
+}, (err) => {
+	console.log(err);
+	return;
+})
 
 var locale = {newProject:'ثبت پروژه جدید', quoteProject: 'برآورد قیمت', isTranslator: 'مترجم هستید ؟', docUplaod: 'حالا فایل های خود را آپلود کنید', docUploadError: 'پروژه ای برای شما وجود ندارد , پروژه چدید شروع کنید' }
 
@@ -155,82 +155,82 @@ bot.on('callback_query', (msg) => {
 })
 
 
-bot.on('message', (msg) => {
-	// console.log(msg);
+// bot.on('message', (msg) => {
+// 	// console.log(msg);
 
-	let story = ' <a href="https://d267cvn3rvuq91.cloudfront.net/i/images/dsc0409.jpg">&#8205</a>';
+// 	let story = ' <a href="https://d267cvn3rvuq91.cloudfront.net/i/images/dsc0409.jpg">&#8205</a>';
 	
 
-bot.sendMessage(msg.chat.id, `فایل شما با موفقیت دریافت شد, حال زمان مورد نظرتان را برای تحویل ترجمه انتخاب کنید`, {reply_markup: {"inline_keyboard": [[{"text": 'امروز', "callback_data": 'today'}, {"text": 'فردا', "callback_data": 'tomorrow'}], [{"text": 'این هفته', "callback_data": 'thisWeek'}]]}});
-// bot.sendMessage(msg.chat.id, story , {parse_mode:'html', reply_markup: {"keyboard": [[{text: "شماره تماس", request_contact: true}]]}});
-// bot.sendVoice(msg.chat.id, 'BQADBAAD7AADN-hgUxzJsCaEKwTNAg', {caption: 'گوش بده بش'});
+// bot.sendMessage(msg.chat.id, `فایل شما با موفقیت دریافت شد, حال زمان مورد نظرتان را برای تحویل ترجمه انتخاب کنید`, {reply_markup: {"inline_keyboard": [[{"text": 'امروز', "callback_data": 'today'}, {"text": 'فردا', "callback_data": 'tomorrow'}], [{"text": 'این هفته', "callback_data": 'thisWeek'}]]}});
+// // bot.sendMessage(msg.chat.id, story , {parse_mode:'html', reply_markup: {"keyboard": [[{text: "شماره تماس", request_contact: true}]]}});
+// // bot.sendVoice(msg.chat.id, 'BQADBAAD7AADN-hgUxzJsCaEKwTNAg', {caption: 'گوش بده بش'});
 
-	if (msg.document) {
-		if (userState.get() == 'customer') {  // customer state
-			if (this.project.getStep() == 2) { // upload first doc
-				this.project.setProjectDocuments(msg.document)
-				bot.sendMessage(msg.chat.id, `فایل شما با موفقیت دریافت شد, حال زمان مورد نظرتان را برای تحویل ترجمه انتخاب کنید`, {reply_markup: {"inline_keyboard": [[{"text": 'امروز', "callback_data": 'today'}, {"text":'فردا'}], ['همین هفته', 'هفته آینده'], ['فرقی ندارد']]}});
+// 	if (msg.document) {
+// 		if (userState.get() == 'customer') {  // customer state
+// 			if (this.project.getStep() == 2) { // upload first doc
+// 				this.project.setProjectDocuments(msg.document)
+// 				bot.sendMessage(msg.chat.id, `فایل شما با موفقیت دریافت شد, حال زمان مورد نظرتان را برای تحویل ترجمه انتخاب کنید`, {reply_markup: {"inline_keyboard": [[{"text": 'امروز', "callback_data": 'today'}, {"text":'فردا'}], ['همین هفته', 'هفته آینده'], ['فرقی ندارد']]}});
 
 				
-			} else if (this.project.getStep() == 3) { // uploading additional docs
-				this.project.setProjectDocuments(msg.document)
-				bot.sendMessage(msg.chat.id, `فایل با موفقیت آپلود شد`)
-			} else {
-				bot.sendMessage(msg.chat.id, locale.docUploadError)
-			}
-		} else if (userState.get() == 'translator') {
-			bot.sendMessage(msg.chat.id, `مترجم عزیز فایل شما دریافت شد`);
-		}
-	}
+// 			} else if (this.project.getStep() == 3) { // uploading additional docs
+// 				this.project.setProjectDocuments(msg.document)
+// 				bot.sendMessage(msg.chat.id, `فایل با موفقیت آپلود شد`)
+// 			} else {
+// 				bot.sendMessage(msg.chat.id, locale.docUploadError)
+// 			}
+// 		} else if (userState.get() == 'translator') {
+// 			bot.sendMessage(msg.chat.id, `مترجم عزیز فایل شما دریافت شد`);
+// 		}
+// 	}
 
-	if (msg.text) {
-		if (userState.get() === '') { // no state yet
-			if (msg.text.includes(locale.isTranslator)) {
-				userState.set(2);
-				bot.sendMessage(msg.chat.id, 'choose one of the options', {reply_markup: {"keyboard": [['ثبت نام کنید'], ['انصراف']]}});	
+// 	if (msg.text) {
+// 		if (userState.get() === '') { // no state yet
+// 			if (msg.text.includes(locale.isTranslator)) {
+// 				userState.set(2);
+// 				bot.sendMessage(msg.chat.id, 'choose one of the options', {reply_markup: {"keyboard": [['ثبت نام کنید'], ['انصراف']]}});	
 
-			} else if (msg.text.includes(locale.newProject)){
-				var projectTypeKeyboard = [["عمومی", "تخصصی"], ["دانشجویی", "سازمانی"],["خانه"]];
+// 			} else if (msg.text.includes(locale.newProject)){
+// 				var projectTypeKeyboard = [["عمومی", "تخصصی"], ["دانشجویی", "سازمانی"],["خانه"]];
 				
-				userState.set(1);
-				this.project = new Project(msg);
+// 				userState.set(1);
+// 				this.project = new Project(msg);
 
-				bot.sendMessage(msg.chat.id, 'got your msg, new project is allocated fo yo', {reply_markup: {"keyboard": projectTypeKeyboard}})
-			}
-		} 
+// 				bot.sendMessage(msg.chat.id, 'got your msg, new project is allocated fo yo', {reply_markup: {"keyboard": projectTypeKeyboard}})
+// 			}
+// 		} 
 
-		else if (userState.get() === 'customer') { // Customer state
+// 		else if (userState.get() === 'customer') { // Customer state
 
-			if (msg.text.includes(locale.quoteProject)) {
-				// console.log(userClass.getUser());
-				// bot.sendMessage(msg.chat.id, userClass.getUser())
-			} else if (msg.text.includes('عمومی')) {
-				console.log(`${userState.get()}`);
-				this.project.setProjectType('عمومی');
-				bot.sendMessage(msg.chat.id, locale.docUplaod, {reply_markup: {"remove_keyboard": true}})
-			} else if (msg.text.includes('تخصصی')) {
-				this.project.setProjectType('تخصصی');
-				bot.sendMessage(msg.chat.id, locale.docUpload, {reply_markup: {"remove_keyboard": true}})
-			} else if (msg.text.includes('دانشجویی')) {
+// 			if (msg.text.includes(locale.quoteProject)) {
+// 				// console.log(userClass.getUser());
+// 				// bot.sendMessage(msg.chat.id, userClass.getUser())
+// 			} else if (msg.text.includes('عمومی')) {
+// 				console.log(`${userState.get()}`);
+// 				this.project.setProjectType('عمومی');
+// 				bot.sendMessage(msg.chat.id, locale.docUplaod, {reply_markup: {"remove_keyboard": true}})
+// 			} else if (msg.text.includes('تخصصی')) {
+// 				this.project.setProjectType('تخصصی');
+// 				bot.sendMessage(msg.chat.id, locale.docUpload, {reply_markup: {"remove_keyboard": true}})
+// 			} else if (msg.text.includes('دانشجویی')) {
 				
-				// bot.sendMessage(msg.chat.id, 'لطفن شماره خود را وارد کنید ', {reply_markup: {"text": "شماره تماس", "request_contact": true}})
-			} else if (msg.text.includes('امروز')) {
-				setProjectDeadline('امروز');
-				bot.sendMessage(msg.chat.id, `در آخرین مرحله اگر می خواهید توضیحاتی در رابطه با پروژه خود دارید را بنویسید`);
-			} else if (msg.text.includes('فردا')) {
-				setProjectDeadline('فردا');
-				// bot.sendMessage
-			}
-		} else if (userState.get() === 'translator') { // translator state
+// 				// bot.sendMessage(msg.chat.id, 'لطفن شماره خود را وارد کنید ', {reply_markup: {"text": "شماره تماس", "request_contact": true}})
+// 			} else if (msg.text.includes('امروز')) {
+// 				setProjectDeadline('امروز');
+// 				bot.sendMessage(msg.chat.id, `در آخرین مرحله اگر می خواهید توضیحاتی در رابطه با پروژه خود دارید را بنویسید`);
+// 			} else if (msg.text.includes('فردا')) {
+// 				setProjectDeadline('فردا');
+// 				// bot.sendMessage
+// 			}
+// 		} else if (userState.get() === 'translator') { // translator state
 
-			if (msg.text.includes('ثبت نام')) {
-				bot.sendMessage(msg.chat.id, 'ok i got it your\' a hard head !');
-			} else if (msg.text.includes('انصراف')) {
-				bot.sendMessage(msg.chat.id, 'why !? , really ??? ');
-			}
-		}
-	}
-})
+// 			if (msg.text.includes('ثبت نام')) {
+// 				bot.sendMessage(msg.chat.id, 'ok i got it your\' a hard head !');
+// 			} else if (msg.text.includes('انصراف')) {
+// 				bot.sendMessage(msg.chat.id, 'why !? , really ??? ');
+// 			}
+// 		}
+// 	}
+// })
 
 
 function projectFinalized(msg) {
