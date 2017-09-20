@@ -95,7 +95,7 @@ const bot = new TelegramBot(token, {polling: true});
 bot.on('message', (msg) => {
 	if (msg.text && msg.text.match(/\/start/)) {
 		homePage(msg);
-	} else if (msg.text) {	
+	} else {	
 		bot.sendChatAction(msg.chat.id, 'typing');
 		let waiting = {};
 			waiting.msg = 'در حال دریافت اطلاعات ...';
@@ -138,10 +138,10 @@ function homePage(msg) {
 // 	bot.sendMessage(msg.chat.id, `last state : ${userState.get()}`);
 // })
 
-bot.onText(/\/start/, (msg) => {
-	// userState.set(0);
-	homePage(msg);
-})
+// bot.onText(/\/start/, (msg) => {
+// 	// userState.set(0);
+// 	homePage(msg);
+// })
 
 // bot.on('callback_query', (msg) => {
 // 	if (msg.data == 'today') {
