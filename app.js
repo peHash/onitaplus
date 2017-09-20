@@ -15,65 +15,65 @@ const token = '311727287:AAH_ZXvV_A3HovDcaNJiW0UCC5XNFCsc6N4';
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
 
-var userState = (function($this){
+// var userState = (function($this){
 
-$this.states = ['', 'customer', 'translator', 'admin'];
+// $this.states = ['', 'customer', 'translator', 'admin'];
 
-	return {
-		get: function() {
-			if ($this.state) {return $this.state;} else { return $this.state = $this.states[0]};
-		},
+// 	return {
+// 		get: function() {
+// 			if ($this.state) {return $this.state;} else { return $this.state = $this.states[0]};
+// 		},
 
-		set: function(state) {
-			$this.state = $this.states[Number(state)];
-		}
-	};
-}(this));
+// 		set: function(state) {
+// 			$this.state = $this.states[Number(state)];
+// 		}
+// 	};
+// }(this));
 
-class Project {
+// class Project {
 
-	constructor (user) {
-		this.project = {};
-		this.project.user = user ? user : '';
-		this.step = 0;
-	}
-	setUser(user) {
-		this.project.user = user;
-	}
-	getUser() {
-		return this.project.user;
-	}
-	setProjectType(type) {
-		this.project.type = type;
-		this.step = 2;
-		return;
-	}
-	setProjectDeadline(time) {
-		this.step = 4;
-		return this.project.deadline = time;
-	}
-	setProjectDocuments(doc) {
-		if (this.project.docs) {this.project.docs.push(doc) } else {this.project.docs = [doc]};
-		this.step = 3;
-		return;
-	}
-	setProjectDescription(desc) {
-		this.project.desc = desc;
-		this.step = 5;
-		return;
-	}
-	setProjectFinallized() {
-		return this.project.final = true;
-	}
-	getProject() {
-		return this.project;
-	}
-	getStep() {
-		return this.step;
-	}
+// 	constructor (user) {
+// 		this.project = {};
+// 		this.project.user = user ? user : '';
+// 		this.step = 0;
+// 	}
+// 	setUser(user) {
+// 		this.project.user = user;
+// 	}
+// 	getUser() {
+// 		return this.project.user;
+// 	}
+// 	setProjectType(type) {
+// 		this.project.type = type;
+// 		this.step = 2;
+// 		return;
+// 	}
+// 	setProjectDeadline(time) {
+// 		this.step = 4;
+// 		return this.project.deadline = time;
+// 	}
+// 	setProjectDocuments(doc) {
+// 		if (this.project.docs) {this.project.docs.push(doc) } else {this.project.docs = [doc]};
+// 		this.step = 3;
+// 		return;
+// 	}
+// 	setProjectDescription(desc) {
+// 		this.project.desc = desc;
+// 		this.step = 5;
+// 		return;
+// 	}
+// 	setProjectFinallized() {
+// 		return this.project.final = true;
+// 	}
+// 	getProject() {
+// 		return this.project;
+// 	}
+// 	getStep() {
+// 		return this.step;
+// 	}
 
 
-}
+// }
 
 // Fetching bot update
 // bot.getUpdates({allowed_updates: 'message', limit: 100, offset: 1}).then(res => {
@@ -81,15 +81,15 @@ class Project {
 // }, err => console.log(err))
 
 
-bot.on('inline_query', (q) => {
+// bot.on('inline_query', (q) => {
 
-	bot.answerInlineQuery(q.id, [{
-		type: 'article',
-		id: q.id,
-		title: q.query,
-		input_message_content: {message_text: 'got your message'}
-	}]);
-})
+// 	bot.answerInlineQuery(q.id, [{
+// 		type: 'article',
+// 		id: q.id,
+// 		title: q.query,
+// 		input_message_content: {message_text: 'got your message'}
+// 	}]);
+// })
 
 
 bot.on('message', (msg) => {
@@ -113,46 +113,39 @@ bot.on('message', (msg) => {
 	return;
 })
 
-var locale = {newProject:'ثبت پروژه جدید', quoteProject: 'برآورد قیمت', isTranslator: 'مترجم هستید ؟', docUplaod: 'حالا فایل های خود را آپلود کنید', docUploadError: 'پروژه ای برای شما وجود ندارد , پروژه چدید شروع کنید' }
+// var locale = {newProject:'ثبت پروژه جدید', quoteProject: 'برآورد قیمت', isTranslator: 'مترجم هستید ؟', docUplaod: 'حالا فایل های خود را آپلود کنید', docUploadError: 'پروژه ای برای شما وجود ندارد , پروژه چدید شروع کنید' }
 
-bot.onText(/\/logProject/, (msg) => {
-	if (this.project) {
-		bot.sendMessage(msg.chat.id, "Last log :" + JSON.stringify(this.project.getProject()));
-	}
-})
+// bot.onText(/\/logProject/, (msg) => {
+// 	if (this.project) {
+// 		bot.sendMessage(msg.chat.id, "Last log :" + JSON.stringify(this.project.getProject()));
+// 	}
+// })
 
 function homePage(msg) {
-	bot.sendMessage(msg.chat.id, "یکی از گزینه ها را انتخاب کنید", {
-		reply_markup: {
-			"keyboard": [
-				[locale.newProject, locale.quoteProject], 
-				[locale.isTranslator]
-			]
-		}
-	})
+	bot.sendMessage(msg.chat.id, "کلمه یا متن مورد نظر خود را ارسال کنید");
 }
 
-bot.onText(/خانه/, (msg) => {homePage(msg)})
+// bot.onText(/خانه/, (msg) => {homePage(msg)})
 
-bot.onText(/./, (msg) => {
-	fileLogger.log(msg);
-})
+// bot.onText(/./, (msg) => {
+// 	fileLogger.log(msg);
+// })
 
-bot.onText(/\/state/, (msg) => {
-	bot.sendMessage(msg.chat.id, `last state : ${userState.get()}`);
-})
+// bot.onText(/\/state/, (msg) => {
+// 	bot.sendMessage(msg.chat.id, `last state : ${userState.get()}`);
+// })
 
 bot.onText(/\/start/, (msg) => {
-	userState.set(0);
+	// userState.set(0);
 	homePage(msg);
 })
 
-bot.on('callback_query', (msg) => {
-	if (msg.data == 'today') {
-		// bot.answerCallbackQuery(msg.id, 'بنظر میرسه خیلی عجله دارین :)');
-		bot.sendMessage(msg.message.chat.id, 'اوکی :)', {reply_markup: {"force_reply": true}})
-	}
-})
+// bot.on('callback_query', (msg) => {
+// 	if (msg.data == 'today') {
+// 		// bot.answerCallbackQuery(msg.id, 'بنظر میرسه خیلی عجله دارین :)');
+// 		bot.sendMessage(msg.message.chat.id, 'اوکی :)', {reply_markup: {"force_reply": true}})
+// 	}
+// })
 
 
 // bot.on('message', (msg) => {
@@ -233,9 +226,9 @@ bot.on('callback_query', (msg) => {
 // })
 
 
-function projectFinalized(msg) {
-	bot.sendMessage(msg.chat.id, `Congratulation ! your project added successfully`);
-}
+// function projectFinalized(msg) {
+// 	bot.sendMessage(msg.chat.id, `Congratulation ! your project added successfully`);
+// }
 
 function tsp(msg) {
 	return new Promise(function (resolve, reject) {
