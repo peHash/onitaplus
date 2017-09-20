@@ -14,7 +14,6 @@ const token = '311727287:AAH_ZXvV_A3HovDcaNJiW0UCC5XNFCsc6N4';
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
-var waiting = {};
 
 // var userState = (function($this){
 
@@ -98,6 +97,7 @@ bot.on('message', (msg) => {
 		homePage(msg);
 	} else {	
 		bot.sendChatAction(msg.chat.id, 'typing');
+		var waiting = {};
 		waiting.msg = 'در حال دریافت اطلاعات ...';
 		bot.sendMessage(msg.chat.id, waiting.msg).then(function(r){
 			waiting.chat_id = r.chat.id,
