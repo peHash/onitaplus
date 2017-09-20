@@ -105,6 +105,7 @@ bot.on('message', (msg) => {
 		});
 
 		if (msg.text) tsp(msg).then(function(res){
+			console.log(res);
 			bot.editMessageText(msg.text + '	--->	' + res,{chat_id: waiting.chat_id,message_id:  waiting.message_id});
 		})
 		.catch(function(err){
